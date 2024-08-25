@@ -1,6 +1,5 @@
 package application;
 
-import model.entities.Usuario;
 import model.entities.Utilidades;
 
 public class Test {
@@ -11,8 +10,10 @@ public class Test {
         String caminho = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\formulario.txt";
         //int sla = ut.contadorDeLinhas(caminho);
         //System.out.println(sla);
-
+        //22
         ut.cadastro();
+        ut.listaUsuarios();
+
 
 
 

@@ -2,7 +2,6 @@ package model.entities;
 
 import model.exceptions.ValidationException;
 
-import javax.xml.transform.Source;
 import java.io.*;
 import java.util.*;
 
@@ -10,10 +9,9 @@ public class Utilidades {
 
     private static final String CAMINHO_FORMULARIO = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\formulario.txt";
     private static final String CAMINHO_DADOS = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\dados";
-    private Usuario usuario;
 
 
-    //Cadastro de usuários
+    //Cadastro de usuários MENU = 1
     public void cadastro(){
         Scanner scan = new Scanner(System.in);
         List<String> perguntas = leitor(CAMINHO_FORMULARIO);
@@ -25,7 +23,7 @@ public class Utilidades {
         try {
 
           //Retendo e validando os dados
-          usuario = validacao(scan);
+          Usuario usuario = validacao(scan);
           String nome = usuario.getNome();
 
           if(nome != null){
@@ -114,7 +112,7 @@ public class Utilidades {
     //Formatação e nomeação do arquivo usuário
     public String formatador(String nome){
         int contador = contadorDeLinhas(CAMINHO_DADOS);
-        String nomeFormatado = nome.toUpperCase(Locale.ROOT);
+        String nomeFormatado = nome.replace(" ", "").toUpperCase(Locale.ROOT);
         String nomeDoArquivo = contador + "-" + nomeFormatado + ".txt";
 
         return CAMINHO_DADOS + File.separator + nomeDoArquivo;
@@ -123,16 +121,19 @@ public class Utilidades {
     //Verifica se novas perguntas foram adicionadas
     public List<String> perguntasAdicionadas(Scanner scan){
         List<String> listagem = new ArrayList<>();
+        List<String> perguntas = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO_FORMULARIO))) {
 
             for (int i = 0; i < 4; i++) {
                 br.readLine();
             }
-
-            while(br.readLine() != null){
+            String linha = br.readLine();
+            while(linha != null){
+                perguntas.add(linha);
                 String resposta = scan.nextLine();
-                listagem.add(resposta);
+                listagem.add(linha + " " +resposta);
+                linha = br.readLine();
             }
         }
         catch (IOException e) {
@@ -141,28 +142,130 @@ public class Utilidades {
         return listagem;
     }
 
-        public void salvarDados(String arquivoCaminho, String dadosPrimarios, List<String> listagem, int contador){
-          if(contador > 4){
-              try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoCaminho))) {
-                  bw.write(dadosPrimarios);
+    public void salvarDados(String arquivoCaminho, String dadosPrimarios, List<String> listagem, int contador){
+      if(contador > 4){
+          try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoCaminho))) {
+              bw.write(dadosPrimarios);
 
-                  for(String arquivo: listagem){
-                      bw.write("\n" + arquivo);
-                  }
-              }
-              catch (IOException e) {
-                  System.out.println("Erro na escrita: " + e.getMessage());
-              }
-
-          } else {
-              try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoCaminho))) {
-                  bw.write(dadosPrimarios);
-              }
-              catch (IOException e) {
-                  System.out.println("Erro na escrita: " + e.getMessage());
+              for(String arquivo: listagem){
+                  bw.write("\n" + arquivo);
               }
           }
+          catch (IOException e) {
+              System.out.println("Erro na escrita: " + e.getMessage());
+          }
 
+      } else {
+          try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoCaminho))) {
+              bw.write(dadosPrimarios);
+          }
+          catch (IOException e) {
+              System.out.println("Erro na escrita: " + e.getMessage());
+          }
+      }
+    }
+
+    //Lista todos os usuários MENU = 2
+    public void listaUsuarios(){
+        File pasta = new File(CAMINHO_DADOS);
+        File[] contagem = pasta.listFiles();
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+
+
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
         }
+
+        List<String> usuarios = buscadorGeral(caminhos);
+        List<String> resultado = new ArrayList<>();
+
+        for (String palavra: usuarios){
+            String[] vetor = palavra.split(" ");
+            resultado.add(formatarPalavras(vetor));
+        }
+
+        int i = 0;
+        for(String palavra: resultado){
+
+            System.out.println((i + 1) + " - " + palavra);
+            i++;
+        }
+    }
+
+    //Busca usuarios pelo nome
+    public List<String> buscadorPorNome(List<String> caminhos, List <String> nome, String buscador){
+        List<String> usuarios = new ArrayList<>();
+
+        for(int i = 0; i < caminhos.size(); i++){
+            if (nome.get(i).contains(buscador) || nome.get(i).contains(buscador.toUpperCase())){
+                try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
+                    usuarios.add(br.readLine().substring(28));
+                }
+                catch (IOException e){
+                    System.out.println("Erro: "+e.getMessage());
+                }
+            }
+        }
+            return usuarios;
+    }
+
+    //Busca geral por usuario
+    public List<String> buscadorGeral(List<String> caminhos){
+        List<String> usuarios = new ArrayList<>();
+
+        for (String caminho : caminhos) {
+
+            try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
+                usuarios.add(br.readLine().substring(28));
+            }
+            catch (IOException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+        return usuarios;
+    }
+
+    //Formata as palavras e coloca a 1 letra maiuscula
+    public String formatarPalavras(String[] palavras){
+
+        StringBuilder resultado = new StringBuilder();
+
+        for(String palavra: palavras ){
+            String primeiraLetraMaiuscula = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
+            resultado.append(primeiraLetraMaiuscula).append(" ");
+        }
+        return resultado.toString().trim();
+    }
+
+    //Busca por usuários por nome = MENU 5
+    public void buscaUsuariosNome(String buscador){
+        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuarios
+        File[] contagem = pasta.listFiles(); //listando quantos usuarios existem
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+        List<String> nomes = new ArrayList<>();
+
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
+            nomes.add(file.getName()); //Retendo o nome do arquivo
+        }
+
+        List<String> usuarios = buscadorPorNome(caminhos, nomes, buscador);
+        List<String> resultado = new ArrayList<>();
+
+        for (String palavra: usuarios){
+            String[] vetor = palavra.split(" ");
+            resultado.add(formatarPalavras(vetor));
+        }
+
+        int i = 0;
+        for(String palavra: resultado){
+
+            System.out.println((i + 1) + " - " + palavra);
+            i++;
+        }
+    }
+
 
 }

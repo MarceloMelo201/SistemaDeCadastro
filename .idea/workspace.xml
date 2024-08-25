@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d54083c-c66b-4b0c-b51b-daf8ab3fac74" name="Changes" comment="Passo 1 concluído.">
+    <list default="true" id="0d54083c-c66b-4b0c-b51b-daf8ab3fac74" name="Changes" comment="Passo 3 concluído.">
+      <change afterPath="$PROJECT_DIR$/.idea/easycode.ignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/easycode/codebase-v2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/entities/Usuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/entities/Utilidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/entities/Utilidades.java" afterDir="false" />
     </list>
@@ -25,9 +31,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/model/entities/Utilidades.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2l7FeI7lcXYQmgrIOEXynRzm8kj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -44,7 +56,8 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/model"
+    "last_opened_file_path": "C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/model",
+    "settings.editor.selected.configurable": "cn.yiiguxing.plugin.translate"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -69,11 +82,28 @@
       <option name="project" value="LOCAL" />
       <updated>1724549457045</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Passo 1 concluído.">
+      <option name="closed" value="true" />
+      <created>1724551433137</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724551433137</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Passo 3 concluído.">
+      <option name="closed" value="true" />
+      <created>1724551551161</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724551551161</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Passo 1 concluído." />
-    <option name="LAST_COMMIT_MESSAGE" value="Passo 1 concluído." />
+    <MESSAGE value="Passo 3 concluído." />
+    <option name="LAST_COMMIT_MESSAGE" value="Passo 3 concluído." />
   </component>
 </project>

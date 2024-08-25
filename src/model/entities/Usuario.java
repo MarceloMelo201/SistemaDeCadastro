@@ -2,11 +2,14 @@ package model.entities;
 
 import model.exceptions.ValidationException;
 
+import java.util.List;
+
 public class Usuario {
     private String nome;
     private String email;
     private Integer idade;
     private String altura;
+    private static final String CAMINHO_FORMULARIO = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\formulario.txt";
 
     public Usuario(){}
 
@@ -86,18 +89,16 @@ public class Usuario {
     }
 
     public String formatacaoDados(){
-        String nomeUnido = getNome().replace(" ", "").toUpperCase();
+        String nome = getNome().toUpperCase();
+        Utilidades util = new Utilidades();
+        List<String> perguntas = util.leitor(CAMINHO_FORMULARIO);
+
         StringBuilder sb = new StringBuilder();
+        sb.append(perguntas.getFirst()).append(" ").append(nome);
+        sb.append("\n").append(perguntas.get(1)).append(" ").append(getEmail().toUpperCase());
+        sb.append("\n").append(perguntas.get(2)).append(" ").append(getIdade());
+        sb.append("\n").append(perguntas.get(3)).append(" ").append(getAltura());
 
-        for (int i = 0; i < nomeUnido.length(); i++) {
-            sb.append(nomeUnido.charAt(i));
-
-            if (i < nomeUnido.length() - 1) {
-                sb.append(",");
-            }
-        }
-        String nomeFormatado = sb.toString();
-
-        return (nomeFormatado + "\n" + getEmail() + "\n" + getIdade() + "\n" + getAltura());
+        return sb.toString();
     }
 }

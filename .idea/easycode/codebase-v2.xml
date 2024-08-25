@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/application/Main.java;C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/application/Test.java;C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/model/entities/Usuario.java;C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/model/entities/Utilidades.java;C:/Users/55719/Downloads/Meus_Projetos/Java/SistemaDeCadastro/src/model/exceptions/ValidationException.java" />
+  </component>
+</project>

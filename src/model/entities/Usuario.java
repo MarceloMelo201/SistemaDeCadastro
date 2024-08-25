@@ -6,11 +6,11 @@ public class Usuario {
     private String nome;
     private String email;
     private Integer idade;
-    private Double altura;
+    private String altura;
 
     public Usuario(){}
 
-    public Usuario(String nome, String email, Integer idade, Double altura) {
+    public Usuario(String nome, String email, Integer idade, String altura) {
         this.nome = nome;
         this.email = email;
         this.idade = idade;
@@ -42,11 +42,11 @@ public class Usuario {
         this.idade = idade;
     }
 
-    public Double getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(Double altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
@@ -79,9 +79,8 @@ public class Usuario {
         }
     }
 
-    public void validarAltura(double altura){
-        String alturaStr = Double.toString(altura);
-        if(alturaStr.contains(".")){
+    public void validarAltura(String altura){
+        if(altura.contains(".")){
             throw new ValidationException("Acesso negado. Digite a altura com vírgula ao invés de ponto.");
         }
     }

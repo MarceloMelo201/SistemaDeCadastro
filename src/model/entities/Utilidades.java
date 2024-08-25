@@ -55,9 +55,8 @@ public class Utilidades {
         String nome = scan.nextLine();
         String email = scan.nextLine();
         int idade = scan.nextInt();
-        double altura = scan.nextDouble();
-
         scan.nextLine();
+        String altura = scan.nextLine();
 
         Usuario usuarioValidado = new Usuario();
 
@@ -115,8 +114,8 @@ public class Utilidades {
     //Formatação e nomeação do arquivo usuário
     public String formatador(String nome){
         int contador = contadorDeLinhas(CAMINHO_DADOS);
-        String nomeFormatado = nome.replace(" ", "");
-        String nomeDoArquivo = contador + "-" + nomeFormatado.toUpperCase(Locale.ROOT) + ".txt";
+        String nomeFormatado = nome.toUpperCase(Locale.ROOT);
+        String nomeDoArquivo = contador + "-" + nomeFormatado + ".txt";
 
         return CAMINHO_DADOS + File.separator + nomeDoArquivo;
     }

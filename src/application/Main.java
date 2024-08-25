@@ -9,9 +9,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Utilidades util = new Utilidades();
 
-        String seila = sc.nextLine();
-        Double valor = Double.parseDouble(seila);
-        System.out.println(valor);
 
         sc.close();
     }

@@ -35,6 +35,10 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("Digite a pergunta: ");
+                    String pergunta = sc.nextLine();
+                    util.adicionarPerguntas(pergunta);
+                    break;
 
             }
 

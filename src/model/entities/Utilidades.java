@@ -142,6 +142,7 @@ public class Utilidades {
         return listagem;
     }
 
+    //Cria um arquivo e salva os dados do usuário
     public void salvarDados(String arquivoCaminho, String dadosPrimarios, List<String> listagem, int contador){
       if(contador > 4){
           try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoCaminho))) {
@@ -264,6 +265,20 @@ public class Utilidades {
 
             System.out.println((i + 1) + " - " + palavra);
             i++;
+        }
+    }
+
+    //Adiciona perguntas no formulário MENU 3
+    public void adicionarPerguntas(String pergunta){
+        int numeroLinhas = contadorDeLinhas(CAMINHO_FORMULARIO);
+        String perguntaFormatada = (numeroLinhas + 1) + " - " + pergunta;
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_FORMULARIO, true))){
+
+            bw.newLine();
+            bw.write(perguntaFormatada);
+
+        } catch (IOException e){
+            System.out.println("Erro: "+e.getMessage());
         }
     }
 

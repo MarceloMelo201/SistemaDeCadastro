@@ -11,9 +11,9 @@ public class Test {
         //int sla = ut.contadorDeLinhas(caminho);
         //System.out.println(sla);
         //22
-        ut.cadastro();
-        ut.listaUsuarios();
-
+        //ut.cadastro();
+        //ut.listaUsuarios();
+        ut.adicionarPerguntas("testezinho");
 
 
 

@@ -7,7 +7,8 @@ public class Test {
 
         Utilidades ut = new Utilidades();
 
-
+        //ut.cadastro();
+        ut.buscaUsuariosIdade(21);
 
 
 

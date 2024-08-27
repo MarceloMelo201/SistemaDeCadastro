@@ -12,7 +12,7 @@ public class Utilidades {
 
 
     //Cadastro de usuários MENU = 1
-    public void cadastro(){
+    public boolean cadastro(){
         Scanner scan = new Scanner(System.in);
         List<String> perguntas = leitor(CAMINHO_FORMULARIO);
 
@@ -26,25 +26,25 @@ public class Utilidades {
           Usuario usuario = validacao(scan);
           String nome = usuario.getNome();
 
-          if(nome != null){
+          if(nome != null && !usuario.verificarEmail(usuario.getEmail())){
               String nomeArquivo = formatador(nome);
               String dadosPrimarios = usuario.formatacaoDados();
               int contador = contadorDeLinhas(CAMINHO_FORMULARIO);
               List<String> listagem = perguntasAdicionadas(scan);
               salvarDados(nomeArquivo, dadosPrimarios, listagem, contador);
+          } else {
+              return false;
           }
 
 
         }
-        catch (ValidationException | NullPointerException e){
+        catch (ValidationException | NullPointerException | NoSuchElementException e){
             System.out.println("Erro: "+e.getMessage());
-        }
-        catch (InputMismatchException e){
-            System.out.println("Acesso negado. Digite a altura com vírgula ao invés de ponto.");
         }
         finally {
             scan.close();
         }
+        return true;
     }
 
     //Validação dos dados
@@ -194,22 +194,6 @@ public class Utilidades {
         }
     }
 
-    //Busca usuários pelo nome
-    public List<String> buscadorPorNome(List<String> caminhos, List <String> nome, String buscador){
-        List<String> usuarios = new ArrayList<>();
-
-        for(int i = 0; i < caminhos.size(); i++){
-            if (nome.get(i).contains(buscador) || nome.get(i).contains(buscador.toUpperCase())){
-                try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
-                    usuarios.add(br.readLine().substring(28));
-                }
-                catch (IOException e){
-                    System.out.println("Erro: "+e.getMessage());
-                }
-            }
-        }
-            return usuarios;
-    }
 
     //Busca geral por usuario
     public List<String> buscadorGeral(List<String> caminhos){
@@ -237,35 +221,6 @@ public class Utilidades {
             resultado.append(primeiraLetraMaiuscula).append(" ");
         }
         return resultado.toString().trim();
-    }
-
-    //Busca por usuários por nome = MENU 5
-    public void buscaUsuariosNome(String buscador){
-        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuarios
-        File[] contagem = pasta.listFiles(); //listando quantos usuarios existem
-        assert contagem != null;
-        List<String> caminhos = new ArrayList<>();
-        List<String> nomes = new ArrayList<>();
-
-        for (File file : contagem) {
-            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
-            nomes.add(file.getName()); //Retendo o nome do arquivo
-        }
-
-        List<String> usuarios = buscadorPorNome(caminhos, nomes, buscador);
-        List<String> resultado = new ArrayList<>();
-
-        for (String palavra: usuarios){
-            String[] vetor = palavra.split(" ");
-            resultado.add(formatarPalavras(vetor));
-        }
-
-        int i = 0;
-        for(String palavra: resultado){
-
-            System.out.println((i + 1) + " - " + palavra);
-            i++;
-        }
     }
 
     //Adiciona perguntas no formulário MENU 3
@@ -328,5 +283,156 @@ public class Utilidades {
         }
     }
 
+    //Busca por usuários por nome = MENU 5
+    public void buscaUsuariosNome(String buscador){
+        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuários
+        File[] contagem = pasta.listFiles(); //listando quantos usuários existem
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+        List<String> nomes = new ArrayList<>();
+
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
+            nomes.add(file.getName()); //Retendo o nome do arquivo
+        }
+
+        List<String> usuarios = buscadorPorNome(caminhos, nomes, buscador);
+        List<String> resultado = new ArrayList<>();
+
+        for (String palavra: usuarios){
+            String[] vetor = palavra.split(" ");
+            resultado.add(formatarPalavras(vetor));
+        }
+
+        int i = 0;
+        for(String palavra: resultado){
+
+            System.out.println((i + 1) + " - " + palavra);
+            i++;
+        }
+    }
+
+    //Busca usuários pelo nome
+    public List<String> buscadorPorNome(List<String> caminhos, List <String> nome, String buscador){
+        List<String> usuarios = new ArrayList<>();
+
+        for(int i = 0; i < caminhos.size(); i++){
+            if (nome.get(i).contains(buscador) || nome.get(i).contains(buscador.toUpperCase())){
+                try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
+                    usuarios.add(br.readLine().substring(28));
+                }
+                catch (IOException e){
+                    System.out.println("Erro: "+e.getMessage());
+                }
+            }
+        }
+        return usuarios;
+    }
+
+    //Busca usuários por idade
+    public void buscaUsuariosIdade(int buscador){
+        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuários
+        File[] contagem = pasta.listFiles(); //listando quantos usuários existem
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+        List<String> nomes = new ArrayList<>();
+
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
+            nomes.add(file.getName()); //Retendo o nome do arquivo
+        }
+
+        List<String> usuarios = buscadorIdade(caminhos, buscador);
+        List<String> resultado = new ArrayList<>();
+
+        for (String palavra: usuarios){
+            String[] vetor = palavra.split(" ");
+            resultado.add(formatarPalavras(vetor));
+        }
+
+        int i = 0;
+        System.out.println("Usuários com " + buscador + " anos: ");
+        for(String palavra: resultado){
+
+            if(palavra != null ){
+                System.out.println((i + 1) + " - " + palavra);
+                i++;
+            }
+        }
+    }
+
+    //Buscar usuários pela idade
+    public List<String> buscadorIdade(List<String> caminhos, int buscador){
+        List<String> usuarios = new ArrayList<>();
+        int i = 0;
+
+        while(i < caminhos.size()){
+            try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
+                String usuario = br.readLine().substring(28);
+                br.readLine();
+                int idade = Integer.parseInt(br.readLine().substring(20));
+                if(idade == buscador){
+                    usuarios.add(usuario);
+                }
+                i++;
+            }
+            catch (IOException e){
+                System.out.println("Erro: "+e.getMessage());
+            }
+        }
+        return  usuarios;
+    }
+
+    public List<String> buscadorEmail(List<String> caminhos, String buscador){
+        List<String> usuarios = new ArrayList<>();
+        int i = 0;
+
+        while(i < caminhos.size()){
+            try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
+                String usuario = br.readLine().substring(28);
+                String email = br.readLine().substring(31);
+
+                if(email.toLowerCase().equals(buscador)){
+                    usuarios.add(usuario);
+                }
+                i++;
+            }
+            catch (IOException e){
+                System.out.println("Erro: "+e.getMessage());
+            }
+        }
+        return  usuarios;
+    }
+
+    public void buscaUsuariosEmail(String buscador){
+        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuários
+        File[] contagem = pasta.listFiles(); //listando quantos usuários existem
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+        List<String> nomes = new ArrayList<>();
+
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
+            nomes.add(file.getName()); //Retendo o nome do arquivo
+        }
+
+        List<String> usuarios = buscadorEmail(caminhos, buscador);
+        List<String> resultado = new ArrayList<>();
+
+        for (String palavra: usuarios){
+            String[] vetor = palavra.split(" ");
+            resultado.add(formatarPalavras(vetor));
+        }
+
+        int i = 0;
+        System.out.println("Usuário com o email procurado: ");
+        for(String palavra: resultado){
+
+            if(palavra != null ){
+                System.out.println((i + 1) + " - " + palavra);
+                i++;
+            }
+        }
+    }
 
 }

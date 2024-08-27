@@ -2,7 +2,13 @@ package model.entities;
 
 import model.exceptions.ValidationException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Usuario {
     private String nome;
@@ -10,6 +16,7 @@ public class Usuario {
     private Integer idade;
     private String altura;
     private static final String CAMINHO_FORMULARIO = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\formulario.txt";
+    private static final String CAMINHO_DADOS = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\dados";
 
     public Usuario(){}
 
@@ -27,10 +34,6 @@ public class Usuario {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Integer getIdade() {
@@ -62,7 +65,9 @@ public class Usuario {
         if(!email.contains("@")){
             throw new ValidationException("O email deve conter @, digite um email válido.");
         }
-
+        if(!verificarEmail(email)){
+            throw new ValidationException("Acesso negado, Email digitado já cadastrado no sistema.");
+        };
     }
 
     public void validarIdade(int idade){
@@ -77,10 +82,36 @@ public class Usuario {
         }
     }
 
-    public void verificarEmail(String email){
-        //abrir a pasta dos usuarios, ler até a 3 linha de cada usuario e verificar se o email já foi usado
+    public boolean verificarEmail(String email){
+        File pasta = new File(CAMINHO_DADOS); //acessando pasta dos usuários
+        File[] contagem = pasta.listFiles(); //listando quantos usuários existem
+        assert contagem != null;
+        List<String> caminhos = new ArrayList<>();
+        List<String> nomes = new ArrayList<>();
 
+        for (File file : contagem) {
+            caminhos.add(file.getAbsolutePath()); // retendo o caminho completo do arquivo
+            nomes.add(file.getName()); //Retendo o nome do arquivo
+        }
+        int i = 0;
+        while(i < caminhos.size()){
+
+            try(BufferedReader br = new BufferedReader(new FileReader(caminhos.get(i)))){
+                br.readLine();
+                String emailCadastrado = br.readLine().substring(31);
+
+                if(emailCadastrado.toLowerCase(Locale.ROOT).equals(email)){
+                    return false;
+                }
+                i++;
+            }
+            catch (IOException e){
+                System.out.println("Erro: "+e.getMessage());
+            }
+        }
+        return true;
     }
+
     public String formatacaoDados(){
         String nome = getNome().toUpperCase();
         Utilidades util = new Utilidades();

@@ -7,9 +7,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Utilidades util = new Utilidades();
+        Utilidades utilidades = new Utilidades();
 
-        util.cadastro();
+        utilidades.cadastro();
 
         boolean menu = true;
 
@@ -22,23 +22,55 @@ public class Main {
             System.out.println(" 3 - Cadastrar nova pergunta no formulário");
             System.out.println(" 4 - Deletar pergunta do formulário");
             System.out.println(" 5 - Pesquisar usuário por nome ou idade ou email");
+            System.out.println(" 6 - Sair");
 
             int escolha = sc.nextInt();
 
             switch (escolha){
                 case 1:
-                    util.cadastro();
+                    utilidades.cadastro();
                     break;
 
                 case 2:
-                    util.listaUsuarios();
+                    utilidades.listaUsuarios();
                     break;
 
                 case 3:
+                    System.out.println();
                     System.out.println("Digite a pergunta: ");
                     String pergunta = sc.nextLine();
-                    util.adicionarPerguntas(pergunta);
+                    utilidades.adicionarPerguntas(pergunta);
                     break;
+
+                case 4:
+                    System.out.println();
+                    System.out.println("Digite o número da pergunta a ser deletada (Maior ou igual a 4): ");
+                    int numero = sc.nextInt();
+                    utilidades.removerPerguntas(numero);
+                    break;
+
+                case 5:
+                    System.out.println();
+                    System.out.println(" 1 - Pesquisa por nome");
+                    System.out.println(" 2 - Pesquisa por idade");
+                    System.out.println(" 3 - Pesquisa por email");
+                    int pesquisa = sc.nextInt();
+
+                    switch (pesquisa){
+
+                        case 1:
+                            System.out.println();
+                            System.out.println("Digite o nome: ");
+                            String nome = sc.nextLine();
+                            utilidades.buscaUsuariosNome(nome);
+                            break;
+
+
+                    }
+
+
+                case 6:
+                    menu = false;
 
             }
 

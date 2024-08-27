@@ -25,10 +25,6 @@ public class Usuario {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -41,16 +37,9 @@ public class Usuario {
         return idade;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
 
     public String getAltura() {
         return altura;
-    }
-
-    public void setAltura(String altura) {
-        this.altura = altura;
     }
 
     private void validarUsuario(){
@@ -88,17 +77,20 @@ public class Usuario {
         }
     }
 
+    public void verificarEmail(String email){
+        //abrir a pasta dos usuarios, ler até a 3 linha de cada usuario e verificar se o email já foi usado
+
+    }
     public String formatacaoDados(){
         String nome = getNome().toUpperCase();
         Utilidades util = new Utilidades();
         List<String> perguntas = util.leitor(CAMINHO_FORMULARIO);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(perguntas.getFirst()).append(" ").append(nome);
-        sb.append("\n").append(perguntas.get(1)).append(" ").append(getEmail().toUpperCase());
-        sb.append("\n").append(perguntas.get(2)).append(" ").append(getIdade());
-        sb.append("\n").append(perguntas.get(3)).append(" ").append(getAltura());
+        String sb = perguntas.getFirst() + " " + nome +
+                "\n" + perguntas.get(1) + " " + getEmail().toUpperCase() +
+                "\n" + perguntas.get(2) + " " + getIdade() +
+                "\n" + perguntas.get(3) + " " + getAltura();
 
-        return sb.toString();
+        return sb;
     }
 }

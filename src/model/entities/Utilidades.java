@@ -194,7 +194,7 @@ public class Utilidades {
         }
     }
 
-    //Busca usuarios pelo nome
+    //Busca usuários pelo nome
     public List<String> buscadorPorNome(List<String> caminhos, List <String> nome, String buscador){
         List<String> usuarios = new ArrayList<>();
 
@@ -227,7 +227,7 @@ public class Utilidades {
         return usuarios;
     }
 
-    //Formata as palavras e coloca a 1 letra maiuscula
+    //Formata as palavras e coloca a 1 letra maiúscula
     public String formatarPalavras(String[] palavras){
 
         StringBuilder resultado = new StringBuilder();
@@ -273,12 +273,58 @@ public class Utilidades {
         int numeroLinhas = contadorDeLinhas(CAMINHO_FORMULARIO);
         String perguntaFormatada = (numeroLinhas + 1) + " - " + pergunta;
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_FORMULARIO, true))){
-
             bw.newLine();
             bw.write(perguntaFormatada);
 
-        } catch (IOException e){
+        }
+        catch (IOException e){
             System.out.println("Erro: "+e.getMessage());
+        }
+    }
+
+    //Remove perguntas no formulário MENU 4
+    public void removerPerguntas(int numero){
+        int contador = contadorDeLinhas(CAMINHO_FORMULARIO);
+        if (numero > 4) {
+            List<String> perguntas = new ArrayList<>();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO_FORMULARIO))) {
+                String pergunta;
+                for(int i = 1; i < 5; i++){
+                    pergunta = br.readLine();
+                    perguntas.add(pergunta);
+                }
+                for(int i = 5; i <= contador; i++){
+                    pergunta = br.readLine();
+
+                    if(i < numero){
+                        perguntas.add(pergunta);
+                    }
+                    if(i > numero){
+                        String perguntaFormatada = (i - 1) + " - " + pergunta.substring(4);
+                        perguntas.add(perguntaFormatada);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+            perguntas.removeIf(String::isEmpty);
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_FORMULARIO))) {
+                for (String pergunta : perguntas) {
+
+                    if(perguntas.get(0) == pergunta){
+                        bw.write(pergunta);
+                    } else {
+                        bw.write("\n" + pergunta);
+                    }
+                }
+            }
+            catch (IOException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        } else {
+            System.out.println("As 4 primeiras perguntas são imutáveis, digite um número válido!");
         }
     }
 

@@ -10,11 +10,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Utilidades utilidades = new Utilidades();
-        Boolean verificador = utilidades.cadastro();
+        utilidades.cadastro();
+
 
         boolean menu = true;
 
-        if (verificador){
+
             while(menu){
 
                 System.out.println();
@@ -82,10 +83,7 @@ public class Main {
                         break;
                 }
             }
-        }
-        else {
-            sc.close();
-        }
+
         sc.close();
     }
 }

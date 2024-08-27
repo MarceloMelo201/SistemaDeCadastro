@@ -12,7 +12,7 @@ public class Utilidades {
 
 
     //Cadastro de usuários MENU = 1
-    public boolean cadastro(){
+    public void cadastro(){
         Scanner scan = new Scanner(System.in);
         List<String> perguntas = leitor(CAMINHO_FORMULARIO);
 
@@ -26,25 +26,20 @@ public class Utilidades {
           Usuario usuario = validacao(scan);
           String nome = usuario.getNome();
 
-          if(nome != null && !usuario.verificarEmail(usuario.getEmail())){
+          if(nome != null){
               String nomeArquivo = formatador(nome);
               String dadosPrimarios = usuario.formatacaoDados();
               int contador = contadorDeLinhas(CAMINHO_FORMULARIO);
               List<String> listagem = perguntasAdicionadas(scan);
               salvarDados(nomeArquivo, dadosPrimarios, listagem, contador);
           } else {
-              return false;
+              System.exit(1);
           }
-
-
         }
         catch (ValidationException | NullPointerException | NoSuchElementException e){
             System.out.println("Erro: "+e.getMessage());
+            System.exit(1);
         }
-        finally {
-            scan.close();
-        }
-        return true;
     }
 
     //Validação dos dados

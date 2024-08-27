@@ -68,6 +68,7 @@ public class Usuario {
         if(!verificarEmail(email)){
             throw new ValidationException("Acesso negado, Email digitado já cadastrado no sistema.");
         };
+
     }
 
     public void validarIdade(int idade){

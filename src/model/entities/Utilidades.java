@@ -26,14 +26,13 @@ public class Utilidades {
           Usuario usuario = validacao(scan);
           String nome = usuario.getNome();
 
-          if(nome != null){
+          if(nome != null) {
               String nomeArquivo = formatador(nome);
               String dadosPrimarios = usuario.formatacaoDados();
               int contador = contadorDeLinhas(CAMINHO_FORMULARIO);
               List<String> listagem = perguntasAdicionadas(scan);
               salvarDados(nomeArquivo, dadosPrimarios, listagem, contador);
-          } else {
-              System.exit(1);
+              System.out.println("Usuário cadastrado com sucesso!");
           }
         }
         catch (ValidationException | NullPointerException | NoSuchElementException e){
@@ -182,8 +181,8 @@ public class Utilidades {
         }
 
         int i = 0;
+        System.out.println("Lista de usuários: ");
         for(String palavra: resultado){
-
             System.out.println((i + 1) + " - " + palavra);
             i++;
         }
@@ -230,6 +229,7 @@ public class Utilidades {
         catch (IOException e){
             System.out.println("Erro: "+e.getMessage());
         }
+        System.out.println("Pergunta cadastrada com sucesso!");
     }
 
     //Remove perguntas no formulário MENU 4
@@ -276,6 +276,7 @@ public class Utilidades {
         } else {
             System.out.println("As 4 primeiras perguntas são imutáveis, digite um número válido!");
         }
+        System.out.println("Pergunta removida com sucesso!");
     }
 
     //Busca por usuários por nome = MENU 5

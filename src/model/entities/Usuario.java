@@ -40,16 +40,22 @@ public class Usuario {
         return idade;
     }
 
-
     public String getAltura() {
         return altura;
     }
 
-    private void validarUsuario(){
-        validarNome(getNome());
-        validarEmail(getEmail());
-        validarIdade(getIdade());
-        validarAltura(getAltura());
+    public void validarUsuario(){
+        try {
+            validarNome(getNome());
+            validarEmail(getEmail());
+            validarIdade(getIdade());
+            validarAltura(getAltura());
+
+        } catch (ValidationException e) {
+            System.out.println("Erro: "+e.getMessage());
+            System.exit(1);
+        }
+
     }
 
     public void validarNome(String nome){

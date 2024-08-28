@@ -1,20 +1,17 @@
 package application;
 
 import model.entities.Utilidades;
-import model.exceptions.ValidationException;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanInt = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         Utilidades utilidades = new Utilidades();
         utilidades.cadastro();
 
-
         boolean menu = true;
-
 
             while(menu){
 
@@ -27,7 +24,7 @@ public class Main {
                 System.out.println(" 5 - Pesquisar usuário por nome ou idade ou email");
                 System.out.println(" 6 - Sair");
 
-                int escolha = sc.nextInt();
+                int escolha = scanInt.nextInt();
 
                 switch (escolha){
                     case 1:
@@ -41,14 +38,14 @@ public class Main {
                     case 3:
                         System.out.println();
                         System.out.println("Digite a pergunta: ");
-                        String pergunta = sc.nextLine();
+                        String pergunta = scan.nextLine();
                         utilidades.adicionarPerguntas(pergunta);
                         break;
 
                     case 4:
                         System.out.println();
-                        System.out.println("Digite o número da pergunta a ser deletada (Maior ou igual a 4): ");
-                        int numero = sc.nextInt();
+                        System.out.println("Digite o número da pergunta a ser deletada (Maior ou igual a 5): ");
+                        int numero = scanInt.nextInt();
                         utilidades.removerPerguntas(numero);
                         break;
 
@@ -57,22 +54,32 @@ public class Main {
                         System.out.println(" 1 - Pesquisa por nome");
                         System.out.println(" 2 - Pesquisa por idade");
                         System.out.println(" 3 - Pesquisa por email");
-                        int pesquisa = sc.nextInt();
+                        int pesquisa = scanInt.nextInt();
 
-                        switch (pesquisa){
 
-                            case 1:
-                                System.out.println();
-                                System.out.println("Digite o nome: ");
-                                String nome = sc.nextLine();
-                                utilidades.buscaUsuariosNome(nome);
-                                break;
+                        if(pesquisa == 1){
 
-                            case 2:
-                                System.out.println();
-                                System.out.println("Digite a idade: ");
-
+                            System.out.println();
+                            System.out.println("Digite o nome: ");
+                            String nome = scan.nextLine();
+                            utilidades.buscaUsuariosNome(nome);
+                            break;
                         }
+                        else if(pesquisa == 2){
+                            System.out.println();
+                            System.out.println("Digite a idade: ");
+                            int idade = scanInt.nextInt();
+                            utilidades.buscaUsuariosIdade(idade);
+                            break;
+                        }
+                        else if (pesquisa == 3){
+                            System.out.println();
+                            System.out.println("Digite a idade: ");
+                            String email = scan.nextLine();
+                            utilidades.buscaUsuariosEmail(email);
+                            break;
+                        }
+
 
                     case 6:
                         menu = false;
@@ -84,6 +91,7 @@ public class Main {
                 }
             }
 
-        sc.close();
+        scanInt.close();
+        scan.close();
     }
 }

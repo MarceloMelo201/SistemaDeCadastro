@@ -15,8 +15,8 @@ public class Usuario {
     private String email;
     private Integer idade;
     private String altura;
-    private static final String CAMINHO_FORMULARIO = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\formulario.txt";
-    private static final String CAMINHO_DADOS = "C:\\Users\\55719\\Downloads\\Meus_Projetos\\Java\\SistemaDeCadastro\\src\\model\\dados";
+    private static final String CAMINHO_FORMULARIO = "SistemaDeCadastro\\src\\model\\formulario.txt";
+    private static final String CAMINHO_DADOS = "SistemaDeCadastro\\src\\model\\dados";
 
     public Usuario(){}
 
